@@ -1,0 +1,13 @@
+﻿  CustomTest.cpp
+C:\Users\mmull\win_code\PGR\semestralka\PGRproject-3.0\CustomTest.cpp(209,34): warning C4305: 'argument': truncation from 'double' to 'GLclampf'
+  imgui.cpp
+  imgui_demo.cpp
+  imgui_draw.cpp
+  imgui_impl_glfw.cpp
+  imgui_impl_opengl3.cpp
+  imgui_widgets.cpp
+  Generating Code...
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
+glew32s.lib(glew.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'glew32s.lib(glew.obj)' or at 'C:\Users\mmull\win_code\PGR\semestralka\PGRproject-3.0\Debug\vc120.pdb'; linking object as if no debug info
+  CustomTest.vcxproj -> C:\Users\mmull\win_code\PGR\semestralka\PGRproject-3.0\Debug\CustomTest.exe
