@@ -19,6 +19,9 @@
     <Filter Include="Source Files\Core">
       <UniqueIdentifier>{362b0f30-6032-43be-a37b-7180ebd9c258}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Models">
+      <UniqueIdentifier>{fe26fe44-fc21-48a0-b90a-dc14aa58cfcb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dependencies\GL\glew.h">
@@ -51,6 +54,12 @@
     <ClInclude Include="Dependencies\ImGui\imstb_truetype.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CoreLibs.h">
+      <Filter>Source Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="cube.h">
+      <Filter>Source Files\Models</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Dependencies\ImGui\imgui.cpp">
@@ -71,7 +80,10 @@
     <ClCompile Include="Dependencies\ImGui\imgui_widgets.cpp">
       <Filter>Source Files\Dependencies</Filter>
     </ClCompile>
-    <ClCompile Include="CustomTest.cpp">
+    <ClCompile Include="cube.cpp">
+      <Filter>Source Files\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
   </ItemGroup>

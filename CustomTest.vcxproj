@@ -131,6 +131,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CoreLibs.h" />
+    <ClInclude Include="cube.h" />
     <ClInclude Include="Dependencies\GLFW\glfw3.h" />
     <ClInclude Include="Dependencies\GL\glew.h" />
     <ClInclude Include="Dependencies\ImGui\imconfig.h" />
@@ -143,7 +145,8 @@
     <ClInclude Include="Dependencies\ImGui\imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CustomTest.cpp">
+    <ClCompile Include="cube.cpp" />
+    <ClCompile Include="main.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
