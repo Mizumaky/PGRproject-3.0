@@ -73,7 +73,7 @@ void draw() {
   glutSwapBuffers();
 }
 
-int main(int argc, char** argv) {
+int mainy(int argc, char** argv) {
   glutInit(&argc, argv);
 
   glutInitContextVersion(pgr::OGL_VER_MAJOR, pgr::OGL_VER_MINOR);
