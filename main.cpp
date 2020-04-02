@@ -4,6 +4,59 @@
 // MODELS
 #include "cube.h"
 
+bool initOpenGL()
+{
+	//GLew init
+	if (glewInit() != GLEW_OK)
+	{
+		fprintf(stderr, "Failed to init GLEW.\n");
+		return false;
+	}
+
+	// Get info of GPU and supported OpenGL version
+	printf("Renderer: %s\n", glGetString(GL_RENDERER));
+	printf("OpenGL version supported %s\n", glGetString(GL_VERSION));
+
+	glEnable(GL_DEPTH_TEST); // Depth Testing
+	glDepthFunc(GL_LEQUAL);
+	glDisable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	return true;
+}
+
+bool initShaders()
+{
+	return false;
+}
+
+bool initImGui(GLFWwindow* window, const char* glsl_version)
+{
+	// Setup Dear ImGui context
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
+	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
+	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+	//io.ConfigViewportsNoAutoMerge = true;
+	//io.ConfigViewportsNoTaskBarIcon = true;
+
+	// Setup Dear ImGui style
+	ImGui::StyleColorsDark();
+	//ImGui::StyleColorsClassic();
+
+	// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
+	ImGuiStyle& style = ImGui::GetStyle();
+	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+	{
+		style.WindowRounding = 0.0f;
+		//style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+	}
+
+	// Setup Platform/Renderer bindings
+	return ImGui_ImplGlfw_InitForOpenGL(window, true) &&
+	    ImGui_ImplOpenGL3_Init(glsl_version);
+}
 
 GLFWwindow* initWindow(const int resX, const int resY)
 {
@@ -31,48 +84,21 @@ GLFWwindow* initWindow(const int resX, const int resY)
 	glfwMakeContextCurrent(window);
 	glfwSwapInterval(1); // Enable vsync
 
-	//GLew init
-	if(glewInit() != GLEW_OK)
+	// Init Opengl
+	if (!initOpenGL())
 	{
-		fprintf(stderr, "Failed to init GLEW.\n");
+		fprintf(stderr, "Failed to init OpenGL.\n");
 		glfwTerminate();
 		return NULL;
 	}
 
-	// Get info of GPU and supported OpenGL version
-	printf("Renderer: %s\n", glGetString(GL_RENDERER));
-	printf("OpenGL version supported %s\n", glGetString(GL_VERSION));
-
-	glEnable(GL_DEPTH_TEST); // Depth Testing
-	glDepthFunc(GL_LEQUAL);
-	glDisable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
-
-	// Setup Dear ImGui context
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
-	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
-	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
-	//io.ConfigViewportsNoAutoMerge = true;
-	//io.ConfigViewportsNoTaskBarIcon = true;
-
-	// Setup Dear ImGui style
-	ImGui::StyleColorsDark();
-	//ImGui::StyleColorsClassic();
-
-	// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
-	ImGuiStyle& style = ImGui::GetStyle();
-	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+	if (!initImGui(window, glsl_version))
 	{
-		style.WindowRounding = 0.0f;
-		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+		fprintf(stderr, "Failed to init ImGui.\n");
+		glfwTerminate(); //TODO make better way to end
+		return NULL;
 	}
 
-	// Setup Platform/Renderer bindings
-	ImGui_ImplGlfw_InitForOpenGL(window, true);
-	ImGui_ImplOpenGL3_Init(glsl_version);
 	return window;
 }
 
