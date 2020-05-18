@@ -3,29 +3,27 @@
 
 // MODELS
 #include "cube.h"
+#include "Renderer.h"
 
-bool initOpenGL()
-{
-	//GLew init
-	if (glewInit() != GLEW_OK)
-	{
-		fprintf(stderr, "Failed to init GLEW.\n");
-		return false;
-	}
+struct GameState {
 
-	// Get info of GPU and supported OpenGL version
-	printf("Renderer: %s\n", glGetString(GL_RENDERER));
-	printf("OpenGL version supported %s\n", glGetString(GL_VERSION));
+	int windowWidth;    // set by reshape callback
+	int windowHeight;   // set by reshape callback
 
-	glEnable(GL_DEPTH_TEST); // Depth Testing
-	glDepthFunc(GL_LEQUAL);
-	glDisable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
-	return true;
-}
+	bool freeCameraMode;        // false;
+	float cameraElevationAngle; // in degrees = initially 0.0f
+
+	bool gameOver;              // false;
+	bool keyMap[KEYS_COUNT];    // false
+
+	float elapsedTime;
+
+} gameState;
+
 
 bool initShaders()
 {
+	ShaderManager::createShader("basic", "basic.vert", "basic.frag");
 	return false;
 }
 
@@ -85,7 +83,7 @@ GLFWwindow* initWindow(const int resX, const int resY)
 	glfwSwapInterval(1); // Enable vsync
 
 	// Init Opengl
-	if (!initOpenGL())
+	if (!Renderer::initOpenGL(resX, resY))
 	{
 		fprintf(stderr, "Failed to init OpenGL.\n");
 		glfwTerminate();
@@ -134,9 +132,7 @@ void display(GLFWwindow* window)
 	//Scale to window size
 	int display_w, display_h;
 	glfwGetFramebufferSize(window, &display_w, &display_h);
-	glViewport(0, 0, display_w, display_h);
-	//clear
-	glClearColor(0.0, 0.8, 0.3, 1.0);
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//set opengl
